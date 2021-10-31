@@ -9,11 +9,11 @@
 #include "user/user.h"
 #include "kernel/fcntl.h"
 
-#if defined SCHED_FCFS
+#if defined FCFS
   #define ACTIVE_SCHEDULER "FCFS"
-#elif defined SCHED_MLFQ
+#elif defined MLFQ
   #define ACTIVE_SCHEDULER "MLFQ"
-#elif defined SCHED_PBS
+#elif defined PBS
   #define ACTIVE_SCHEDULER "PBS"
 #else
   #define ACTIVE_SCHEDULER "RR"

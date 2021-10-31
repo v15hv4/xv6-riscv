@@ -475,7 +475,7 @@ void scheduler(void) {
   for (;;) {
     // Avoid deadlock by ensuring that devices can interrupt.
     intr_on();
-#if defined SCHED_FCFS
+#if defined FCFS
 
     // First Come First Serve Scheduling
     struct proc *next = 0;
@@ -511,12 +511,12 @@ void scheduler(void) {
       release(&p->lock);
     }
 
-#elif defined SCHED_MLFQ
+#elif defined MLFQ
 
     // Multi Level Feedback Queue Scheduling
     // TODO: implement MLFQ routine
 
-#elif defined SCHED_PBS
+#elif defined PBS
 
     // Priority Based Scheduling
     // TODO: implement PBS routine
