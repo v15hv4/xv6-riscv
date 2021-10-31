@@ -110,5 +110,7 @@ struct proc {
   uint ctime; // When was the process created
   uint etime; // When did the process exited
 
-  uint tmask;
+  uint tmask; // Mask of syscalls to be traced
+
+  uint nrun; // number of times the process was picked by the scheduler
 };

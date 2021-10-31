@@ -291,6 +291,7 @@ int fork(void) {
   release(&wait_lock);
 
   acquire(&np->lock);
+  np->nrun = 0;
   np->state = RUNNABLE;
   release(&np->lock);
 
@@ -501,6 +502,7 @@ void scheduler(void) {
       // Switch to chosen process.  It is the process's job
       // to release its lock and then reacquire it
       // before jumping back to us.
+      p->nrun++;
       p->state = RUNNING;
       c->proc = p;
       swtch(&c->context, &p->context);
@@ -532,6 +534,7 @@ void scheduler(void) {
         // Switch to chosen process.  It is the process's job
         // to release its lock and then reacquire it
         // before jumping back to us.
+        p->nrun++;
         p->state = RUNNING;
         c->proc = p;
         swtch(&c->context, &p->context);
@@ -714,7 +717,9 @@ void procdump(void) {
       state = states[p->state];
     else
       state = "???";
-    printf("%d %s %s", p->pid, state, p->name);
+
+    printf("%d %s %d %d %d %s", p->pid, state, p->rtime,
+           (ticks - p->ctime - p->rtime), p->nrun, p->name);
     printf("\n");
   }
 }
