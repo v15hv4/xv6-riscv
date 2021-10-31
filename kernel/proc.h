@@ -112,5 +112,7 @@ struct proc {
 
   uint tmask; // Mask of syscalls to be traced
 
-  uint nrun; // number of times the process was picked by the scheduler
+  uint nrun; // Number of times the process was picked by the scheduler
+
+  uint priority; // Priority of the process
 };

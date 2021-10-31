@@ -109,6 +109,7 @@ static struct proc *allocproc(void) {
 found:
   p->pid = allocpid();
   p->state = USED;
+  p->priority = 10;
 
   // Allocate a trapframe page.
   if ((p->trapframe = (struct trapframe *)kalloc()) == 0) {
@@ -489,10 +490,6 @@ void scheduler(void) {
         if ((!next) || (next->ctime > p->ctime))
           next = p;
       }
-    }
-
-    // Release locks of all processes except the chosen one
-    for (p = proc; p < &proc[NPROC]; p++) {
       if (next != p)
         release(&p->lock);
     }
