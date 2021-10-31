@@ -10,13 +10,13 @@
 #include "kernel/fcntl.h"
 
 #if defined SCHED_FCFS
-  #define SCHEDULER "First Come First Serve (FCFS)"
+  #define ACTIVE_SCHEDULER "FCFS"
 #elif defined SCHED_MLFQ
-  #define SCHEDULER "Multi Level Feedback Queue (MLFQ)"
+  #define ACTIVE_SCHEDULER "MLFQ"
 #elif defined SCHED_PBS
-  #define SCHEDULER "Priority Based (PBS)"
+  #define ACTIVE_SCHEDULER "PBS"
 #else
-  #define SCHEDULER "Round Robin (RR)"
+  #define ACTIVE_SCHEDULER "RR"
 #endif
 
 char *argv[] = {"sh", 0};
@@ -33,7 +33,7 @@ int main(void) {
 
   for (;;) {
     printf("init: starting sh\n");
-    printf("using scheduler: %s\n", SCHEDULER);
+    printf("using scheduler: %s\n", ACTIVE_SCHEDULER);
     pid = fork();
     if (pid < 0) {
       printf("init: fork failed\n");
